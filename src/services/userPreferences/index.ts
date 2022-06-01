@@ -1,8 +1,8 @@
 export class PreferencesStorage {
-  private storage: object;
+  private storage: Record<string, string>;
 
-  constructor(value: Record<string, string> = {}) {
-    this.setupStorage(value);
+  constructor(value: Record<string, string> = {}) { 
+    this.storage = value;
   }
   getItem<T>(key: string): T | null {
     const storedValue = this.storage[key];
