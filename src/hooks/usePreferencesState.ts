@@ -3,7 +3,7 @@ import { setUserPreferences } from "../services/api";
 import { debounce } from "lodash";
 import { PreferencesStorage } from "../services/userPreferences";
 
-const setPreferenses = debounce(async () => {
+const setPreferences = debounce(async () => {
   console.log(JSON.stringify(PreferencesStorage.extract()));
   const data = await setUserPreferences(PreferencesStorage.extract());
   PreferencesStorage.setupStorage(JSON.parse(data.preferences));
@@ -12,7 +12,7 @@ const setPreferenses = debounce(async () => {
 
 export const usePreferencesState = <T>(
   storageKey: string
-): [T | null, Dispatch<SetStateAction<T>>] => {
+): [T | null, Dispatch<SetStateAction<T | null>>] => {
   const [value, setValue] = useState<T | null>(
     PreferencesStorage.getItem<T>(storageKey)
   );
@@ -20,7 +20,7 @@ export const usePreferencesState = <T>(
   useEffect(() => {
     if (value) {
       PreferencesStorage.setItem(storageKey, value);
-      setPreferenses();
+      setPreferences();
     }
   }, [value, storageKey]);
 

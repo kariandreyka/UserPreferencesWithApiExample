@@ -13,8 +13,10 @@ export class PreferencesStorage {
     sessionStorage.removeItem(key);
   }
 
-  static setupStorage(value: object) {
+  static setupStorage(value: Record<string, string>) {
+    console.log('setup', value);
     for (const key in value) {
+      console.log(value[key]);
       sessionStorage.setItem(key, value[key]);
     }
   }

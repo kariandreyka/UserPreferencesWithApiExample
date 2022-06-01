@@ -29,7 +29,7 @@ export const Children = () => {
     if (value) {
       setChecked((prev) => [...(prev || []), name]);
     } else {
-      setChecked((prev) => prev?.filter((col) => col !== name));
+      setChecked((prev) => prev?.filter((col) => col !== name) || null);
     }
   };
   return (
