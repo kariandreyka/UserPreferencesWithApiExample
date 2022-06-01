@@ -1,31 +1,36 @@
 export class PreferencesStorage {
-  static getItem<T>(key: string): T | null {
-    const storedValue = sessionStorage.getItem(key);
+  private storage: object;
+
+  constructor(value: Record<string, string> = {}) {
+    this.setupStorage(value);
+  }
+  getItem<T>(key: string): T | null {
+    const storedValue = this.storage[key];
     if (!storedValue) return null;
     return JSON.parse(storedValue);
   }
 
-  static setItem<T>(key: string, value: T) {
-    sessionStorage.setItem(key, JSON.stringify(value));
+  setItem<T>(key: string, value: T) {
+    this.storage[key] = JSON.stringify(value);
   }
 
-  static removeItem(key: string) {
-    sessionStorage.removeItem(key);
-  }
-
-  static setupStorage(value: Record<string, string>) {
-    console.log('setup', value);
-    for (const key in value) {
-      console.log(value[key]);
-      sessionStorage.setItem(key, value[key]);
+  removeItem(key: string) {
+    if (this.storage[key]) {
+      delete this.storage[key];
     }
   }
 
-  static extract() {
-    return sessionStorage;
+  setupStorage(value: Record<string, string>) {
+    this.storage = value;
   }
 
-  static clear() {
-    sessionStorage.clear();
+  extract() {
+    return this.storage;
+  }
+
+  clear() {
+    this.storage = {};
   }
 }
+
+export const storage = new PreferencesStorage();

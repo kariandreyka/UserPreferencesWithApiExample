@@ -3,7 +3,7 @@ import { getUserPreferences } from "./services/api";
 import { Children } from "./components/Children";
 import "./styles.css";
 import { applyMigrations } from "./utils";
-import { PreferencesStorage } from "./services/userPreferences";
+import { storage } from "./services/userPreferences";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ export default function App() {
     (async () => {
       setLoading(true);
       const userPrefs = await getUserPreferences();
-      PreferencesStorage.setupStorage(JSON.parse(userPrefs.preferences));
+      storage.setupStorage(JSON.parse(userPrefs.preferences));
       // console.log(storage.extract());
       applyMigrations();
       setLoading(false);
