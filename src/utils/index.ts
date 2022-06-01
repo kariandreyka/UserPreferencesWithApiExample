@@ -1,12 +1,13 @@
-import { runMigrations } from "../services/migrator";
-import storage from "../services/userPreferences";
+import { AppliedMigration, runMigrations } from "../services/migrator";
 import { migrations } from "../migrations";
+import { PreferencesStorage } from "../services/userPreferences";
 
 export const applyMigrations = () => {
   if (migrations) {
-    const appliedMigrations = storage.getItem("appliedMigrations") || [];
+    const appliedMigrations =
+      PreferencesStorage.getItem<AppliedMigration[]>("appliedMigrations") || [];
     const newMigrations = runMigrations(migrations, appliedMigrations);
-    storage.setItem("appliedMigrations", [
+    PreferencesStorage.setItem("appliedMigrations", [
       ...appliedMigrations,
       ...newMigrations
     ]);

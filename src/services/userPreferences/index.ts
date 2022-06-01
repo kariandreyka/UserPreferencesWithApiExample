@@ -1,37 +1,29 @@
-class InMemoryStorage {
-  private store: object;
-
-  constructor(initialValue: object = {}) {
-    this.store = initialValue;
-  }
-
-  getItem(key: string) {
-    const storedValue = this.store[key];
+export class PreferencesStorage {
+  static getItem<T>(key: string): T | null {
+    const storedValue = sessionStorage.getItem(key);
     if (!storedValue) return null;
     return JSON.parse(storedValue);
   }
 
-  setItem<T>(key: string, value: T) {
-    this.store[key] = JSON.stringify(value);
+  static setItem<T>(key: string, value: T) {
+    sessionStorage.setItem(key, JSON.stringify(value));
   }
 
-  removeItem(key: string) {
-    if (this.store[key]) {
-      delete this.store[key];
+  static removeItem(key: string) {
+    sessionStorage.removeItem(key);
+  }
+
+  static setupStorage(value: object) {
+    for (const key in value) {
+      sessionStorage.setItem(key, value[key]);
     }
   }
 
-  setupStorage(value: object) {
-    this.store = value;
+  static extract() {
+    return sessionStorage;
   }
 
-  extract() {
-    return this.store;
-  }
-
-  clear() {
-    this.store = {};
+  static clear() {
+    sessionStorage.clear();
   }
 }
-
-export default new InMemoryStorage();

@@ -1,13 +1,14 @@
 {
-  "name": "react",
+  "name": "user-preferences-without-local-storage",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@types/lodash": "4.14.182",
+    "@types/react": "18.0.10",
+    "@types/react-dom": "18.0.5",
+    "lodash": "4.17.21",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-scripts": "4.0.0",

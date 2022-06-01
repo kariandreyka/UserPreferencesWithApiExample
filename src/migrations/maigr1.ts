@@ -1,9 +1,9 @@
-import storage from "../services/userPreferences";
+import { PreferencesStorage } from "../services/userPreferences";
 
 export default {
   name: "test-migration",
   up: () => {
-    storage.clear();
-    storage.setItem("biba", ["biba", "boba", "aboba"]);
+    PreferencesStorage.clear();
+    PreferencesStorage.setItem("biba", ["biba", "boba", "aboba"]);
   }
 };

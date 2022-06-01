@@ -1,9 +1,9 @@
-interface Migration {
+export interface Migration {
   name: string;
   up: () => void;
 }
 
-interface AppliedMigration {
+export interface AppliedMigration {
   name: string;
   dateApplied: Date;
 }
@@ -16,7 +16,7 @@ export const runMigrations = (
     (m) => !appliedMigrations.some((am) => m.name === am.name)
   );
 
-  const newAppliedMigrations = [];
+  const newAppliedMigrations: AppliedMigration[] = [];
   notAppliedMigrations.forEach((m) => {
     m.up();
     newAppliedMigrations.push({
